@@ -1,5 +1,16 @@
 // /api/sendOrder.js
 export default async function handler(req, res) {
+  // ----- CORS Headers -----
+  res.setHeader('Access-Control-Allow-Origin', 'https://subtu.rf.gd'); // change to your frontend or use '*' for testing
+  res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+
+  // Handle preflight OPTIONS request
+  if (req.method === 'OPTIONS') {
+    return res.status(200).end();
+  }
+
+  // Only allow POST for actual order submissions
   if (req.method !== "POST") {
     return res.status(405).json({ success: false, message: "Method not allowed" });
   }
